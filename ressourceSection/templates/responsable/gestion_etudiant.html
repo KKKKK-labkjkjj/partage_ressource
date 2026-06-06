@@ -1,0 +1,37 @@
+{% extends "base_res.html" %}
+
+    {% block titre %}accueil  des profs{% endblock %}
+    
+     {% block content %}
+     <table>
+        <tr>
+        <th>email</th>
+        <th>nom</th>
+        <th>prenom</th>
+        <th>numero</th>
+        <th>adresse</th>
+        <th>date de naissance</th>
+        <th>genre</th>
+        <th>site de materiel</th>
+        <th>tel</th>
+       <th>________</th>
+        </tr>
+        {% for etu in etudiants %}
+        <tr>
+            <td>{{ etu.email }}</td>
+            <td>{{ etu.nom }}</td>
+            <td>{{ etu.prenom }}</td>
+            <td>{{ etu.numero_carte }}</td>
+            <td>{{ etu.adresse }}</td>
+            <td>{{ etu.date_naiss }}</td>
+            <td>{{ etu.genre }}</td>
+            <td>{{ etu.site_mat }}</td>
+            <td>{{ etu.tel }}</td>
+            <td><button>passer en classe supperieure</button></td>
+
+            
+        </tr>
+        {% endfor %}
+     </table>
+
+    {% endblock %}

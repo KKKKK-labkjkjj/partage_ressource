@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+    {% block titre %}gestion des responsables{% endblock %}
+
+    {% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Gestion des responsables</h1>
+        <a href="{% url 'ajout_res' %}" class="btn btn-primary">Ajouter un responsable</a>
+    </div>
+
+    <div class="row g-3">
+        {% for r in reponsables %}
+        <div class="col-xl-4 col-md-6">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ r.prenom }} {{ r.nom }}</h5>
+                    <p class="card-text mb-1"><strong>Email :</strong> {{ r.mailesp }}</p>
+                    <p class="card-text mb-1"><strong>Téléphone :</strong> {{ r.numero }}</p>
+                    <p class="card-text mb-1"><strong>Spécialité :</strong> {{ r.specialite }}</p>
+                    <p class="card-text mb-3"><strong>Classe à gérer :</strong> {{ r.idclasse }}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+                    <a href="{% url 'modifier_res' r.mailesp %}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                    <form method="post" action="{% url 'supprimer_res' r.mailesp %}" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Aucun responsable trouvé.</div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

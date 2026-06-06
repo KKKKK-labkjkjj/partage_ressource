@@ -1,0 +1,41 @@
+{% extends "base_res.html" %}
+
+    {% block titre %}accueil  des profs{% endblock %}
+    
+{% block content %}
+    <div class="row">
+        {% for classe in classes %}
+            <div class="col-lg-12 mb-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ classe.get_cycle_display }} - {{ classe.get_niveau_display }}</h5>
+                        <p class="card-text">Classe gérée par {{ responsables.prenom }} {{ responsables.nom }}</p>
+                        <a href="{% url 'det_class_res' classe.idclasse %}" class="btn btn-primary">plus d'informations</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 mb-3">
+            <h3 class="h5">Modules de la classe</h3>
+        </div>
+        {% for mod in modules %}
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">{{ mod.nom_module }}</div>
+                       <p class="mb-1">Coefficient : {{ mod.coefficient|default:'-' }}</p>
+                        <p class="mb-0">Durée / semaine : {{ mod.durésemaine|default:'-' }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-lg-12">
+                <div class="alert alert-info">Aucun module associé à cette classe.</div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

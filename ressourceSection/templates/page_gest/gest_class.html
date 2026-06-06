@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+    {% block titre %}accueil des etudiants{% endblock %}
+
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+    
+     {% block content %}
+    
+<div class="d-flex flex-wrap gap-3">
+
+
+  {% for c in classes %}
+    <a href="{% url 'detail_class' %}" class="text-decoration-none">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ c.get_cycle_display }}</h5>
+          <p class="card-text">Niveau : {{ c.get_niveau_display }}</p>
+        </div>
+      </div>
+    </a>
+  {% empty %}
+    <p class="text-muted">Aucune classe disponible.</p>
+  {% endfor %}
+
+
+    {% endblock %}

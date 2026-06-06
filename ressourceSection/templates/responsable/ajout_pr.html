@@ -1,0 +1,26 @@
+{% extends "base_res.html" %}
+
+{% block content %}
+<div class="row">
+    {% for ens in enseignants %}
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ ens.prenom }} {{ ens.nom }}</h5>
+                    <p class="card-text"><strong>Email :</strong> {{ ens.mailens }}</p>
+                    <p class="card-text"><strong>Téléphone :</strong> {{ ens.numero }}</p>
+                    <p class="card-text"><strong>Spécialité :</strong> {{ ens.specialite }}</p>
+                    <p class="card-text"><strong>Classe :</strong> {% if ens.id_classe %}{{ ens.id_classe.get_cycle_display }} {{ ens.id_classe.get_niveau_display }}{% else %}Non assigné{% endif %}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'assigner_prof' mailesp=ens.mailens %}" class="btn btn-sm btn-primary">Assigner  une classe</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Aucun professeur disponible.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

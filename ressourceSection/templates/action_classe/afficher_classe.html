@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Accueil des étudiants{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    
+    <div class="card p-4 shadow-sm border" style="width: 100%; max-width: 500px;">
+        
+        <div class="mb-3 text-start">
+            <a href="{% url 'gest_class' %}" class="btn btn-sm btn-link text-muted p-0 text-decoration-none">
+                <i class="fas fa-arrow-left me-1"></i> Retour
+            </a>
+        </div>
+
+        <h3 class="fw-bold text-dark mb-4 border-bottom pb-2">Informations de la classe</h3>
+
+        <ul class="list-group list-group-flush text-start">
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3">
+                <span class="text-muted fw-semibold">Cycle :</span>
+                <span class="text-dark fw-bold">{{ classes.get_cycle_display }}</span>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3">
+                <span class="text-muted fw-semibold">Niveau :</span>
+                <span class="text-dark fw-bold">{{ classes.get_niveau_display }}</span>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3">
+                <span class="text-muted fw-semibold">Nombre d'étudiants :</span>
+                <span class="badge bg-secondary rounded-pill font-monospace fs-6">{{ etudiants|length }}</span>
+            </li>
+            
+            <li class="list-group-item px-0 py-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <span class="text-muted fw-semibold">Professeur responsable :</span>
+                    <span class="text-dark fw-bold text-end">
+                        {% for responsable in res %}
+                            {{ responsable.prenom }} {{ responsable.nom }}
+                        {% empty %}
+                            <span class="text-muted fst-italic fw-normal">Aucun assigné</span>
+                        {% endfor %}
+                    </span>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+{% endblock %}

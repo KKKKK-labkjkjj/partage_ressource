@@ -1,0 +1,104 @@
+{% extends "base_res.html" %}
+
+{% block titre %}Détail de la classe{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Cycle</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ classes.get_cycle_display }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Niveau</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ classes.get_niveau_display }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-school fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nombre d'étudiants</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ etudiants.count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Notes des étudiants par Module</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle" width="100%" cellspacing="0">
+                <thead class="bg-light text-dark">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        {% for mod in modules %}
+                            <th class="text-center text-primary font-weight-bold" style="min-width: 110px;">
+                                {{ mod.nom_module }} {# Ou mod.nom_module selon ton champ #}
+                            </th>
+                        {% empty %}
+                            <th class="text-muted fst-italic small">Aucun module disponible</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td class="font-weight-bold text-dark">{{ row.etu.nom }}</td>
+                            <td>{{ row.etu.prenom }}</td>
+                            <td class="text-muted small">{{ row.etu.email }}</td>
+
+                            {% for val in row.notes %}
+                                <td class="text-center font-weight-bold">
+                                    {{ val|default:'-' }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="{{ modules|length|add:3 }}" class="text-center text-muted py-4">
+                                Aucun étudiant dans cette classe.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

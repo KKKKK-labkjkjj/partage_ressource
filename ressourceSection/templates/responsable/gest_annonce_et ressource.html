@@ -1,0 +1,38 @@
+{% extends "base_res.html" %}
+
+{% block titre %}Gestion des annonces et ressources{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+        <div class="col-lg-5 col-md-8 mb-4">
+            <a href="{% url 'gest_res_annone' mailesp=mailesp %}" class="text-decoration-none text-dark">
+                <div class="card shadow-lg border-left-primary h-100">
+                    <div class="card-body py-5 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-bullhorn fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="font-weight-bold">Gestion Annonce</h4>
+                        <p class="text-muted mt-3">Accéder à la gestion des annonces pour créer, modifier ou consulter les annonces.</p>
+                        <span class="btn btn-primary mt-3">Ouvrir la gestion des annonces</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-5 col-md-8 mb-4">
+            <a href="{% url 'gest_res_ressource' mailesp=mailesp %}" class="text-decoration-none text-dark">
+                <div class="card shadow-lg border-left-success h-100">
+                    <div class="card-body py-5 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-book fa-3x text-success"></i>
+                        </div>
+                        <h4 class="font-weight-bold">Gestion Ressource</h4>
+                        <p class="text-muted mt-3">Accéder à la gestion des ressources pour afficher ou organiser les fichiers de la classe.</p>
+                        <span class="btn btn-success mt-3">Ouvrir la gestion des ressources</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% for mod in modules %}
+                                <td class="text-center font-weight-bold">
+                                    {# On va chercher directement dans le dictionnaire préparé dans la vue #}
+                                    {% if etu.notes_dict %}
+                                        {# Utilisation d'un filtre personnalisé ou d'une astuce Django pour lire la clé d'un dict #}
+                                        {# Si tu n'as pas de filtre personnalisé, on peut utiliser une autre méthode, mais celle-ci est la plus propre #}
+                                        {{ etu.notes_dict|get_item:mod.idmodule }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                            {% empty %}
+                                <td class="text-center text-muted">-</td>
+                            {% endfor %}

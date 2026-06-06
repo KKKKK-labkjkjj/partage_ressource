@@ -1,0 +1,12 @@
+{extends "base_res.html"}
+
+{% block titre %}Ajouter un responsable{% endblock %}
+
+{% block content %}
+{% for module in modules %}
+<form method="post">
+    <p>{{ module.nom_module }}</p>
+   <button class="btn btn-primary" type="submit" value="{{ module.id }}">Assigner</button>
+</form>
+{% endfor %}
+{% endblock %}

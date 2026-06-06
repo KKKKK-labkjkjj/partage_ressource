@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+    {% block titre %}accueil  des profs{% endblock %}
+    
+     {% block content %}
+      <div class="mb-3 text-start">
+            <a href="{% url 'gest_class' %}" class="btn btn-sm btn-link text-muted p-0 text-decoration-none">
+                <i class="fas fa-arrow-left me-1"></i> Retour
+            </a>
+        </div>
+     <table>
+         <tr>
+            <th>email</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>numéro</th>
+            <th>spécialité</th>
+            <th>Classe assignée</th>
+            <th>actions</th>
+             
+         </tr>
+         {% for r in reponsables %}
+         <tr>
+             <td>{{ r.mailesp }}</td>
+             <td>{{ r.nom }}</td>
+             <td>{{ r.prenom }}</td>
+             <td>{{ r.numero }}</td>
+             <td>{{ r.specialite }}</td>
+             <td>
+                 {% if r.idclasse %}
+                     <span class="badge badge-info">Niveau {{ r.idclasse.get_niveau_display }}</span>
+                 {% else %}
+                     <span class="badge badge-secondary">Aucune classe</span>
+                 {% endif %}
+             </td>
+                <td>
+                  <a href="{% url 'class_a_affecter' r.mailesp %}" class="btn btn-primary btn-sm">
+                    {% if r.idclasse %}
+                        Modifier
+                    {% else %}
+                        Affecter
+                    {% endif %}
+                  </a>
+                 </td>
+         </tr>
+         {% endfor %}
+     </table>
+
+    {% endblock %}

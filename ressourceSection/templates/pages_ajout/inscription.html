@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         label {
+            display: block;
+            margin-top: 10px;
+        }
+        .input {
+            width: 30%;
+            
+        }
+    </style>
+</head>
+<body>
+ 
+    <form method="POST">
+        {% csrf_token %}
+        
+        
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+<!--
+    <form method="post">
+                {% csrf_token %}
+            <label for="nom"> nom:</label>
+            <input type="text" name="nom" class="input">
+            
+            <label for="prenom"> prenom:</label>
+            <input type="text" name="prenom" class="input">
+            
+            <label for="adresse"> adresse:</label>
+            <input type="text" name="adresse" class="input">
+
+            <label for="date_naiss">date de naissance::</label>
+            <input type="date" name="date_naiss" class="input">
+            
+            <label for="sexe"> genre</label>
+            
+            <input type="radio" name="sexe" value="Homme">
+            <span>Homme</span>
+        
+            <input type="radio" name="sexe" value="Femme">
+            <span> Femme</span>
+
+            <label for="sit_mat"> situation matrimonial:</label>
+            <input type="radio" name="sit_mat" value="marié(e)">
+            <span>marié(e)</span>
+            <input type="radio" name="sit_mat" value="celibataire">
+            <span> celibataire</span> 
+
+            <label for="tel"> numero de telephone:</label>
+            <input type="number" name="tel" class="input">
+            <label for="mail_perso"> mail personnel:</label>
+            
+            <input type="email" name="mail_perso" class="input">
+
+             <label for="mot_pass"> mot de passe:</label>
+            <input type="text" name="mot_pass" class="input">
+
+             <label for="confirmer"> confirmer le mot de passe:</label>
+            <input type="text" name="confirmer" class="input">
+                {% if err %}
+        <p >{{ err }}</p>
+    {% endif %}
+                <input type="submit" name="inscrire"value="s'inscrire">
+    </form>-->
+</body>
+</html>

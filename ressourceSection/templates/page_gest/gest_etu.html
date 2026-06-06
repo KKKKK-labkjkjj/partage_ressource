@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Accueil des Étudiants{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- En-tête de la page -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold text-primary mb-1">
+                <i class="fas fa-user-graduate me-2"></i>Liste des Étudiants
+            </h2>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                Vue simplifiée des fiches d'étudiants par classe.
+            </p>
+        </div>
+    </div>
+
+    <!-- Grille des cartes avec espacement forcé -->
+    <div class="row">
+        {% if etudiants %}
+            {% for etu in etudiants %}
+                <!-- Ajout de mb-4 pour forcer l'espace vers le bas si g-4 ne suffit pas -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 overflow-hidden position-relative" style="margin: 5px;">
+                        
+                        <!-- Badge de la classe -->
+                        <div class="position-absolute top-0 end-0 mt-3 me-3">
+                            <span class="badge bg-secondary px-3 py-2 fs-6 shadow-sm">
+                                <i class="fas fa-school me-1" style="font-size: 0.8rem;"></i> {{ etu.idclasse }}
+                            </span>
+                        </div>
+
+                        <div class="card-body p-4 pt-5">
+                            
+                            <!-- Identité -->
+                            <div class="mb-4">
+                                <h5 class="fw-bold text-dark mb-0 text-capitalize">{{ etu.prenom }}</h5>
+                                <h4 class="fw-bold text-primary mb-1 text-uppercase" style="letter-spacing: 0.5px;">{{ etu.nom }}</h4>
+                                
+                                <!-- Numéro de Carte -->
+                                <small class="text-muted font-monospace d-block mt-3" style="font-size: 0.85rem;">
+                                    N° Carte: <span class="fw-semibold text-dark">{{ etu.numero_carte }}</span>
+                                </small>
+                            </div>
+
+                            <!-- Bloc des actions boutons Bootstrap -->
+                            <div class="d-flex gap-2 mt-4 pt-3 border-top">
+                                <a href="{% url 'detail_etudiant' email=etu.email %}" class="btn btn-sm btn-outline-primary flex-grow-1 py-2">
+                                    <i class="fas fa-eye me-1"></i> Détails
+                                </a>
+                                <a href="{% url 'modifier_etudiant' email=etu.email %}" class="btn btn-sm btn-outline-secondary flex-grow-1 py-2">
+                                    <i class="fas fa-edit me-1"></i> Modifier
+                                </a>
+                                <a href="{% url 'supprimer_etudiant' email=etu.email %}" class="btn btn-sm btn-outline-danger px-3 py-2" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5 text-muted">
+                <div class="card shadow-sm border-0 p-5">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3 text-warning d-block"></i>
+                    <h4>Aucun étudiant trouvé</h4>
+                    <p class="mb-0">Il n'y a actuellement aucun profil étudiant enregistré dans la base de données.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-5 mb-4 text-end text-muted font-monospace" style="font-size: 0.8rem;">
+        Registre Étudiant — Vue par Fiche Administrateur
+    </div>
+</div>
+{% endblock %}

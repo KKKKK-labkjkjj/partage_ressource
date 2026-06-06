@@ -1,0 +1,38 @@
+{% extends "base_res.html" %}
+{% load static %}
+{% block titre %}accueil des profs{% endblock %}
+
+{% block content %}
+<a href="{% url 'ajout_pr' %}"><button class="btn btn-primary">Ajouter un professeur pour la classe</button></a>
+<div class="row">
+    {% for ens in enseignants %}
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ ens.prenom }} {{ ens.nom }}</h5>
+                    <p class="card-text"><strong>Email :</strong> {{ ens.mailens }}</p>
+                    <p class="card-text"><strong>Téléphone :</strong> {{ ens.numero }}</p>
+                    <p class="card-text"><strong>Spécialité :</strong> {{ ens.specialite }}</p>
+                    <p class="card-text"><strong>Cours dispensés :</strong>
+                        {% if ens.module_set.all %}
+                            {% for module in ens.module_set.all %}
+                                {{ module.nom_module }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            Aucun
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'modifier_prof_res' ens.mailens %}" class="btn btn-sm btn-primary mr-2">Modifier</a>
+                    <a href="{% url 'supprimer_prof_res' ens.mailens %}" class="btn btn-sm btn-danger">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Aucun professeur trouvé pour cette classe.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

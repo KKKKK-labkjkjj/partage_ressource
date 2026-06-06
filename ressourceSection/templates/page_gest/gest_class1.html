@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Page de gestion des classes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+
+    <div class="mb-4">
+        <h2 class="fw-bold text-dark mb-1">Gestion des Classes</h2>
+        <p class="text-muted small mb-0">Visualisez la liste des sections et gérez les affectations pédagogiques.</p>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom flex-wrap gap-3">
+        <a href="{% url 'affecter_class' %}" class="btn btn-primary shadow-sm px-4 py-2 rounded-pill">
+            <i class="fas fa-user-plus me-2"></i> Affecter une classe
+        </a>
+        
+        <a href="#" class="btn btn-outline-primary shadow-sm px-4 py-2 rounded-pill">
+            <i class="fas fa-network-wired me-2"></i> Consulter les réseaux
+        </a>
+    </div>
+
+    <div class="row g-4 g-md-5">
+        {% if classes %}
+            {% for c in classes %}
+                <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+                    <a href="{% url 'afficher_classe' c.idclasse %}" class="text-decoration-none w-100 d-flex">
+                        <div class="card w-100 shadow-sm border-0 border-start border-primary border-4 translate-hover transition-all">
+                            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h4 class="fw-bold text-dark mb-0 text-break" title="{{ c.libelle }}">
+                                            {{ c.libelle }}
+                                        </h4>
+                                    </div>
+                                    <p class="text-muted small mb-4">
+                                        <i class="fas fa-layer-group me-1 text-muted"></i> Code Section : <span class="font-monospace fw-bold">{{ c.idclasse }}</span>
+                                    </p>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-auto">
+                                    <span class="badge bg-light text-primary border border-primary-subtle px-3 py-2 rounded-pill">
+                                        <i class="fas fa-graduation-cap me-1"></i> {{ c.niveau }}
+                                    </span>
+                                    <small class="text-primary fw-semibold flex-shrink-0">
+                                        Voir détails <i class="fas fa-chevron-right ms-1 transition-arrow"></i>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="text-muted mb-3">
+                    <i class="fas fa-school fa-3x opacity-50"></i>
+                </div>
+                <h5 class="text-secondary">Aucune classe n'est enregistrée pour le moment.</h5>
+                <p class="text-muted small">Les classes ajoutées ou configurées apparaîtront directement ici.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<style>
+    .transition-all {
+        transition: all 0.25s ease-in-out;
+    }
+    .translate-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12) !important;
+    }
+    .translate-hover:hover .transition-arrow {
+        transform: translateX(4px);
+    }
+    .transition-arrow {
+        transition: transform 0.2s ease;
+        display: inline-block;
+    }
+</style>
+{% endblock %}

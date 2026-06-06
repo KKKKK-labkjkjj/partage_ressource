@@ -1,0 +1,27 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if err %}
+    <p>{{ err }}</p>
+{% endif %}
+    <form method="post"> 
+        {% csrf_token %}
+        <label for="">nom d'utilisateur</label>
+      <input type="email" name="nom_util" class="form-control form-control-user" placeholder="Votre email...">
+         <label for="">mot de passe</label>
+       <input type="password" name="mot_pass" class="form-control form-control-user" placeholder="Mot de passe...">
+      <button type="submit" class="btn btn-primary btn-user btn-block">Se connecter</button>
+       <button>
+            <a href="inscription">s'inscrire</a>
+        </button>
+        {% if err %}
+    <div class="alert alert-danger text-center mt-3">{{ err }}</div>
+{% endif %}
+    </form>
+</body>
+</html>
